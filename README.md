@@ -37,9 +37,22 @@ http://localhost:3000/admin
 ```env
 NEXT_PUBLIC_SUPABASE_URL=https://seu-projeto.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=sua-chave-anon-publica
+ADMIN_USER=alien
+ADMIN_PASSWORD=troque-por-uma-senha-forte
 ```
 
 Este projeto usa apenas a chave anon publica. Antes de producao real, proteja `/admin` com autenticacao e revise as policies de insert conforme o fluxo escolhido.
+
+## Protecao do Admin
+
+A rota `/admin` e protegida por autenticacao HTTP Basic via `middleware.ts`.
+
+No navegador, ao acessar `/admin`, informe:
+
+- usuario: valor de `ADMIN_USER`
+- senha: valor de `ADMIN_PASSWORD`
+
+A pagina publica `/proposta/[slug]` continua aberta para envio aos clientes.
 
 ## Deploy na Vercel
 
@@ -48,6 +61,8 @@ Este projeto usa apenas a chave anon publica. Antes de producao real, proteja `/
 3. Em `Settings > Environment Variables`, cadastre:
    - `NEXT_PUBLIC_SUPABASE_URL`
    - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - `ADMIN_USER`
+   - `ADMIN_PASSWORD`
 4. Rode o deploy.
 
 ## Configurar subdominio
