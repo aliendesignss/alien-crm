@@ -33,6 +33,19 @@ body {
   text-rendering: geometricPrecision;
 }
 
+h1,
+h2,
+h3,
+p,
+a,
+strong,
+span,
+b,
+label,
+button {
+  overflow-wrap: anywhere;
+}
+
 body::before {
   content: "";
   position: fixed;
@@ -99,22 +112,16 @@ figure {
 }
 
 .logo {
-  font-weight: 900;
-  font-size: 1.02rem;
-  letter-spacing: -0.02em;
+  display: inline-flex;
+  align-items: center;
+  width: clamp(126px, 13vw, 176px);
   text-decoration: none;
-  white-space: nowrap;
 }
 
-.logo::after {
-  content: "";
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  margin-left: 9px;
-  border-radius: 50%;
-  background: var(--neon);
-  box-shadow: 0 0 20px rgba(41, 255, 154, 0.75);
+.logo img {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 0 18px rgba(41, 255, 154, 0.2));
 }
 
 .nav-links {
@@ -225,7 +232,7 @@ figure {
   font-size: clamp(2.35rem, 4.2vw, 4rem);
   font-weight: 950;
   line-height: 1;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   text-wrap: balance;
   text-shadow: 0 0 34px rgba(255, 255, 255, 0.08);
 }
@@ -270,7 +277,7 @@ figure {
 
 .console-grid {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 12px;
   margin-top: clamp(44px, 6vw, 72px);
 }
@@ -339,7 +346,7 @@ figure {
   font-size: clamp(1.85rem, 2.9vw, 3.15rem);
   font-weight: 900;
   line-height: 1.05;
-  letter-spacing: -0.035em;
+  letter-spacing: 0;
   text-wrap: balance;
 }
 
@@ -348,6 +355,7 @@ figure {
   color: var(--muted-dark);
   font-size: clamp(0.98rem, 1.28vw, 1.08rem);
   line-height: 1.65;
+  text-wrap: pretty;
 }
 
 .strategy-grid,
@@ -602,7 +610,7 @@ figure {
   color: var(--text);
   font-size: clamp(1.05rem, 1.3vw, 1.22rem);
   line-height: 1.16;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
 }
 
 .process-step p {
@@ -660,7 +668,7 @@ figure {
   color: var(--ink);
   font-size: clamp(1.9rem, 3vw, 3.2rem);
   line-height: 1.04;
-  letter-spacing: -0.035em;
+  letter-spacing: 0;
 }
 
 .investment-panel p {
@@ -693,7 +701,7 @@ figure {
   color: var(--neon);
   font-size: clamp(2.2rem, 4.2vw, 3.8rem);
   line-height: 0.95;
-  letter-spacing: -0.035em;
+  letter-spacing: 0;
 }
 
 .mini-facts {
@@ -738,7 +746,7 @@ figure {
   font-size: clamp(2.3rem, 4.6vw, 4.8rem);
   font-weight: 950;
   line-height: 0.98;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
 }
 
 .cta-box p {
@@ -787,7 +795,7 @@ figure {
   margin-top: 14px;
   font-size: clamp(2.1rem, 5vw, 4rem);
   line-height: 1;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
 }
 
 .expired-panel p {
@@ -835,7 +843,7 @@ figure {
   font-size: clamp(2.25rem, 5vw, 4.7rem);
   font-weight: 950;
   line-height: 0.95;
-  letter-spacing: -0.05em;
+  letter-spacing: 0;
 }
 
 .admin-briefing p {
@@ -999,16 +1007,59 @@ textarea::placeholder {
   }
 }
 
+.reveal {
+  transform-origin: 50% 65%;
+}
+
 @media (prefers-reduced-motion: no-preference) {
-  .hero-content,
-  .console-card,
-  .section-head,
-  .dark-card,
-  .process-step,
-  .investment-panel,
   .admin-shell,
   .expired-panel {
     animation: rise 700ms ease both;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(34px) scale(0.985);
+    transition:
+      opacity 700ms ease,
+      transform 700ms ease;
+  }
+
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: reveal-by-scroll both ease-out;
+      animation-timeline: view();
+      animation-range: entry 0% exit 100%;
+    }
+
+    .hero-content.reveal {
+      animation-range: entry 0% exit 88%;
+    }
+  }
+
+  @supports not (animation-timeline: view()) {
+    .reveal {
+      animation: rise 700ms ease both;
+    }
+  }
+}
+
+@keyframes reveal-by-scroll {
+  0% {
+    opacity: 0;
+    transform: translateY(34px) scale(0.985);
+    filter: blur(6px);
+  }
+  22%,
+  78% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-22px) scale(0.992);
+    filter: blur(4px);
   }
 }
 
