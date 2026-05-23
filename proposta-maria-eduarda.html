@@ -1,0 +1,1247 @@
+<!--
+  CAMPOS EDITÁVEIS PELO AGENTE
+
+  Substituir estes campos para gerar uma nova proposta:
+  - nome_cliente
+  - nome_empresa
+  - nicho
+  - servico
+  - data_proposta
+  - validade_proposta
+  - prazo
+  - investimento
+  - condicao_pagamento
+  - objetivo
+  - whatsapp_url
+  - imagens_carrossel
+  - entregaveis
+  - cronograma
+  - termos
+-->
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Proposta comercial premium da Alien Designs para criação de Landing Page para Maria Eduarda Marketing.">
+  <title>Alien Designs - Proposta Landing Page Premium | Maria Eduarda</title>
+  <style>
+    :root {
+      --bg: #020403;
+      --bg-soft: #050505;
+      --neon: #29ff9a;
+      --neon-strong: #73ffbd;
+      --paper: #f7f8f3;
+      --paper-soft: #ebece6;
+      --ink: #f7f8f3;
+      --text: #101412;
+      --muted: #8d928f;
+      --muted-dark: #5d6460;
+      --card: #101412;
+      --card-soft: #151a17;
+      --line: rgba(255,255,255,0.12);
+      --line-dark: rgba(2,4,3,0.12);
+      --glow: 0 0 44px rgba(41,255,154,0.22);
+      --shadow: 0 28px 80px rgba(2,4,3,0.18);
+      --radius-sm: 14px;
+      --radius-md: 24px;
+      --radius-lg: 44px;
+      --wrap: min(1180px, calc(100% - 40px));
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+      text-rendering: geometricPrecision;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 52% 30%, rgba(41,255,154,0.19), transparent 22rem),
+        radial-gradient(circle at 78% 12%, rgba(41,255,154,0.10), transparent 18rem),
+        linear-gradient(180deg, #020403 0%, #050505 62%, #020403 100%);
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.28;
+      background:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: 96px 96px;
+      mask-image: linear-gradient(to bottom, black, transparent 72%);
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    p,
+    h1,
+    h2,
+    h3,
+    figure {
+      margin: 0;
+    }
+
+    .wrap {
+      width: var(--wrap);
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: rgba(2,4,3,0.78);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 74px;
+      gap: 22px;
+    }
+
+    .logo {
+      font-weight: 900;
+      font-size: 1.02rem;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .logo::after {
+      content: "";
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin-left: 9px;
+      border-radius: 50%;
+      background: var(--neon);
+      box-shadow: 0 0 20px rgba(41,255,154,0.75);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(12px, 2.4vw, 34px);
+      color: rgba(247,248,243,0.66);
+      font-size: 0.9rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      transition: color 180ms ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--ink);
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 20px;
+      border: 1px solid rgba(41,255,154,0.44);
+      border-radius: 999px;
+      color: #031009;
+      background: var(--neon);
+      box-shadow: 0 0 0 0 rgba(41,255,154,0.32), var(--glow);
+      font-weight: 850;
+      text-decoration: none;
+      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+      white-space: nowrap;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      background: var(--neon-strong);
+      box-shadow: 0 0 0 7px rgba(41,255,154,0.08), var(--glow);
+    }
+
+    .button.small {
+      min-height: 40px;
+      padding: 0 15px;
+      font-size: 0.86rem;
+    }
+
+    .button.ghost {
+      color: var(--ink);
+      background: rgba(255,255,255,0.04);
+      border-color: rgba(255,255,255,0.16);
+      box-shadow: none;
+    }
+
+    .hero {
+      position: relative;
+      min-height: calc(100svh - 74px);
+      display: grid;
+      align-items: center;
+      overflow: hidden;
+      padding: clamp(72px, 10vw, 128px) 0 clamp(130px, 13vw, 190px);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 40%;
+      width: min(720px, 78vw);
+      aspect-ratio: 1;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(41,255,154,0.18), transparent 67%);
+      filter: blur(8px);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      text-align: center;
+    }
+
+    .eyebrow,
+    .section-kicker {
+      color: var(--neon);
+      font-size: 0.73rem;
+      font-weight: 850;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .hero-greeting {
+      margin: 20px auto 0;
+      color: rgba(247,248,243,0.7);
+      font-size: clamp(0.95rem, 1.25vw, 1.08rem);
+      font-weight: 620;
+    }
+
+    .hero h1 {
+      max-width: 760px;
+      margin: 14px auto 0;
+      color: var(--ink);
+      font-size: clamp(2.35rem, 4.2vw, 4rem);
+      font-weight: 950;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      text-wrap: balance;
+      text-shadow: 0 0 34px rgba(255,255,255,0.08);
+    }
+
+    .hero h1 span {
+      display: block;
+    }
+
+    .hero h1 .neon {
+      color: var(--neon);
+      text-shadow: 0 0 34px rgba(41,255,154,0.32);
+    }
+
+    .hero h1 .soft {
+      color: rgba(247,248,243,0.72);
+    }
+
+    .hero-copy {
+      display: grid;
+      gap: 10px;
+      max-width: 720px;
+      margin: 26px auto 0;
+      color: rgba(247,248,243,0.72);
+      font-size: clamp(0.95rem, 1.18vw, 1.06rem);
+    }
+
+    .hero-copy strong {
+      color: var(--ink);
+      text-shadow: 0 0 22px rgba(255,255,255,0.08);
+      font-size: clamp(1.02rem, 1.45vw, 1.22rem);
+      font-weight: 760;
+      line-height: 1.28;
+    }
+
+    .hero-copy .neon {
+      color: var(--neon);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .console-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: clamp(44px, 6vw, 72px);
+    }
+
+    .console-card {
+      min-height: 112px;
+      padding: 16px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.085), rgba(255,255,255,0.035));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+      backdrop-filter: blur(14px);
+      text-align: left;
+    }
+
+    .console-card span {
+      display: block;
+      color: rgba(247,248,243,0.46);
+      font-size: 0.68rem;
+      font-weight: 850;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .console-card strong {
+      display: block;
+      margin-top: 12px;
+      color: var(--ink);
+      font-size: clamp(0.95rem, 1.4vw, 1.12rem);
+      line-height: 1.15;
+    }
+
+    .main-screen {
+      position: relative;
+      z-index: 2;
+      margin-top: -96px;
+      padding: clamp(72px, 8vw, 112px) 0 0;
+      color: var(--text);
+      background: var(--paper);
+      border-radius: clamp(46px, 8vw, 124px) clamp(46px, 8vw, 124px) 0 0;
+      box-shadow: 0 -24px 120px rgba(0,0,0,0.32);
+      overflow: hidden;
+    }
+
+    .section {
+      padding: clamp(64px, 7vw, 96px) 0;
+    }
+
+    .section.first {
+      padding-top: 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(280px, 0.72fr);
+      gap: clamp(28px, 5vw, 72px);
+      align-items: end;
+      margin-bottom: clamp(28px, 4vw, 46px);
+    }
+
+    .section h2 {
+      margin-top: 12px;
+      color: var(--text);
+      font-size: clamp(1.85rem, 2.9vw, 3.15rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+      text-wrap: balance;
+    }
+
+    .section-head p,
+    .lead {
+      color: var(--muted-dark);
+      font-size: clamp(0.98rem, 1.28vw, 1.08rem);
+      line-height: 1.65;
+    }
+
+    .strategy-grid,
+    .scope-grid,
+    .schedule-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .scope-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .dark-card,
+    .term-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 190px;
+      padding: 22px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 22px;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 100% 0%, rgba(41,255,154,0.16), transparent 34%),
+        linear-gradient(180deg, #151a17, #0d100f);
+      box-shadow: var(--shadow);
+      transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+    }
+
+    .dark-card:hover,
+    .term-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(41,255,154,0.36);
+      box-shadow: 0 30px 90px rgba(2,4,3,0.22), 0 0 48px rgba(41,255,154,0.12);
+    }
+
+    .dark-card .index,
+    .term-card .index {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      margin-bottom: 26px;
+      border: 1px solid rgba(41,255,154,0.35);
+      border-radius: 999px;
+      color: var(--neon);
+      font-size: 0.74rem;
+      font-weight: 900;
+    }
+
+    .dark-card h3,
+    .term-card h3 {
+      color: var(--ink);
+      font-size: 1.04rem;
+      line-height: 1.18;
+      letter-spacing: -0.015em;
+    }
+
+    .dark-card p,
+    .term-card p {
+      margin-top: 12px;
+      color: rgba(247,248,243,0.62);
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    .carousel-zone {
+      margin: clamp(40px, 7vw, 84px) calc(50% - 50vw) 0;
+      padding: clamp(78px, 9vw, 120px) 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 50% 0%, rgba(41,255,154,0.16), transparent 34rem),
+        linear-gradient(180deg, #050706, #020403);
+      overflow: hidden;
+    }
+
+    .carousel-zone .section-head {
+      width: var(--wrap);
+      margin-inline: auto;
+    }
+
+    .carousel-zone h2 {
+      color: var(--ink);
+    }
+
+    .carousel-zone .section-head p {
+      color: rgba(247,248,243,0.56);
+    }
+
+    .marquee {
+      display: grid;
+      gap: 22px;
+      width: 100%;
+      margin-top: 38px;
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 22px;
+      width: max-content;
+      animation: scroll-left 46s linear infinite;
+    }
+
+    .marquee-row.reverse .marquee-track {
+      animation-name: scroll-right;
+      transform: translateX(-50%);
+    }
+
+    .marquee:hover .marquee-track {
+      animation-play-state: paused;
+    }
+
+    .portfolio-card {
+      width: clamp(280px, 33vw, 520px);
+      padding: 10px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 28px;
+      background: rgba(255,255,255,0.065);
+      box-shadow: 0 28px 80px rgba(0,0,0,0.32);
+    }
+
+    .mockup {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 16 / 10;
+      border-radius: 20px;
+      background:
+        linear-gradient(135deg, rgba(41,255,154,0.25), transparent 35%),
+        linear-gradient(180deg, rgba(255,255,255,0.13), rgba(255,255,255,0.02)),
+        var(--shot, linear-gradient(135deg, #111, #252));
+      background-size: cover;
+      background-position: center;
+    }
+
+    .mockup img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    .mockup::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.08), transparent 24%, rgba(2,4,3,0.16)),
+        radial-gradient(circle at 14% 0%, rgba(41,255,154,0.14), transparent 32%);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.09);
+      pointer-events: none;
+    }
+
+    .portfolio-caption {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 8px 4px;
+      color: rgba(247,248,243,0.72);
+      font-size: 0.88rem;
+    }
+
+    .portfolio-caption strong {
+      color: var(--ink);
+      font-size: 0.98rem;
+    }
+
+    .process {
+      position: relative;
+      display: grid;
+      gap: 10px;
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 10px 0;
+      counter-reset: process;
+    }
+
+    .process::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 8px;
+      bottom: 8px;
+      width: 1px;
+      transform: translateX(-50%);
+      background: linear-gradient(
+        180deg,
+        transparent,
+        rgba(41,255,154,0.22) 10%,
+        rgba(41,255,154,0.46) 50%,
+        rgba(41,255,154,0.22) 90%,
+        transparent
+      );
+      box-shadow: 0 0 26px rgba(41,255,154,0.28);
+    }
+
+    .process-step {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 72px minmax(0, 1fr);
+      align-items: center;
+      min-height: 142px;
+    }
+
+    .process-marker {
+      grid-column: 2;
+      grid-row: 1;
+      justify-self: center;
+      display: grid;
+      place-items: center;
+      width: 54px;
+      height: 54px;
+      border: 1px solid rgba(41,255,154,0.42);
+      border-radius: 999px;
+      color: #031009;
+      background: var(--neon);
+      font-size: 0.82rem;
+      font-weight: 950;
+      line-height: 1;
+      box-shadow:
+        0 0 0 8px rgba(41,255,154,0.08),
+        0 0 34px rgba(41,255,154,0.34);
+      z-index: 2;
+    }
+
+    .process-content {
+      grid-row: 1;
+      width: min(100%, 390px);
+      padding: 22px 24px;
+      border: 1px solid rgba(2,4,3,0.1);
+      border-radius: 24px;
+      background: rgba(255,255,255,0.62);
+      box-shadow: 0 18px 48px rgba(2,4,3,0.06);
+      backdrop-filter: blur(10px);
+    }
+
+    .process-step:nth-child(odd) .process-content {
+      grid-column: 1;
+      justify-self: end;
+      text-align: right;
+    }
+
+    .process-step:nth-child(even) .process-content {
+      grid-column: 3;
+      justify-self: start;
+      text-align: left;
+    }
+
+    .process-label {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--muted-dark);
+      font-size: 0.7rem;
+      font-weight: 850;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .process-step h3 {
+      color: var(--text);
+      font-size: clamp(1.05rem, 1.3vw, 1.22rem);
+      line-height: 1.16;
+      letter-spacing: -0.02em;
+    }
+
+    .process-step p {
+      margin-top: 8px;
+      color: var(--muted-dark);
+      font-size: 0.96rem;
+      line-height: 1.6;
+    }
+
+    .schedule-card {
+      min-height: 168px;
+      padding: 22px;
+      border: 1px solid var(--line-dark);
+      border-radius: 24px;
+      background: linear-gradient(180deg, #ffffff, #eeeeea);
+      box-shadow: 0 22px 58px rgba(2,4,3,0.07);
+    }
+
+    .schedule-card span {
+      color: var(--neon);
+      font-size: 0.76rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .schedule-card h3 {
+      margin-top: 16px;
+      color: var(--text);
+      font-size: 1.2rem;
+    }
+
+    .schedule-card p {
+      margin-top: 8px;
+      color: var(--muted-dark);
+    }
+
+    .investment-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 0.48fr);
+      gap: clamp(24px, 5vw, 70px);
+      align-items: center;
+      padding: clamp(30px, 5vw, 62px);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius-lg);
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 86% 22%, rgba(41,255,154,0.24), transparent 22rem),
+        linear-gradient(135deg, #121713, #030504 72%);
+      box-shadow: 0 34px 90px rgba(2,4,3,0.25);
+    }
+
+    .investment-panel h2 {
+      max-width: 620px;
+      color: var(--ink);
+      font-size: clamp(1.9rem, 3vw, 3.2rem);
+      line-height: 1.04;
+      letter-spacing: -0.035em;
+    }
+
+    .investment-panel p {
+      max-width: 620px;
+      margin-top: 18px;
+      color: rgba(247,248,243,0.62);
+      font-size: 0.98rem;
+      line-height: 1.65;
+    }
+
+    .price-box {
+      padding: 24px;
+      border: 1px solid rgba(41,255,154,0.32);
+      border-radius: 26px;
+      background: rgba(255,255,255,0.06);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+
+    .price-box span {
+      color: rgba(247,248,243,0.52);
+      font-size: 0.76rem;
+      font-weight: 850;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .price-box strong {
+      display: block;
+      margin-top: 14px;
+      color: var(--neon);
+      font-size: clamp(2.2rem, 4.2vw, 3.8rem);
+      line-height: 0.95;
+      letter-spacing: -0.035em;
+    }
+
+    .mini-facts {
+      display: grid;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .mini-facts div {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      color: rgba(247,248,243,0.72);
+      font-size: 0.92rem;
+    }
+
+    .terms-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .term-card {
+      min-height: 190px;
+    }
+
+    .final-cta {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(78px, 9vw, 122px) 0;
+      color: var(--ink);
+      background: #020403;
+    }
+
+    .final-cta::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 35%;
+      width: min(620px, 82vw);
+      aspect-ratio: 1;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(41,255,154,0.18), transparent 66%);
+    }
+
+    .cta-box {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .cta-box h2 {
+      color: var(--ink);
+      font-size: clamp(2.3rem, 4.6vw, 4.8rem);
+      font-weight: 950;
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+    }
+
+    .cta-box p {
+      max-width: 640px;
+      margin: 26px auto 0;
+      color: rgba(247,248,243,0.64);
+      font-size: clamp(1rem, 1.6vw, 1.22rem);
+    }
+
+    .cta-box .button {
+      margin-top: 34px;
+    }
+
+    .signature {
+      margin-top: 68px;
+      color: rgba(247,248,243,0.42);
+      font-size: 0.88rem;
+    }
+
+    @keyframes scroll-left {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    @keyframes scroll-right {
+      from { transform: translateX(-50%); }
+      to { transform: translateX(0); }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .hero-content,
+      .console-card,
+      .section-head,
+      .dark-card,
+      .process-step,
+      .investment-panel {
+        animation: rise 700ms ease both;
+      }
+
+      .console-card:nth-child(2),
+      .dark-card:nth-child(2) { animation-delay: 80ms; }
+      .console-card:nth-child(3),
+      .dark-card:nth-child(3) { animation-delay: 140ms; }
+      .console-card:nth-child(4) { animation-delay: 200ms; }
+      .console-card:nth-child(5) { animation-delay: 260ms; }
+      .console-card:nth-child(6) { animation-delay: 320ms; }
+    }
+
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 980px) {
+      .nav-links {
+        display: none;
+      }
+
+      .console-grid,
+      .strategy-grid,
+      .scope-grid,
+      .schedule-grid,
+      .terms-grid,
+      .section-head,
+      .investment-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .console-grid {
+        max-width: 680px;
+        margin-inline: auto;
+      }
+
+      .section-head {
+        align-items: start;
+      }
+    }
+
+    @media (max-width: 680px) {
+      :root {
+        --wrap: min(100% - 28px, 1180px);
+      }
+
+      .nav {
+        min-height: 64px;
+      }
+
+      .button.small {
+        min-height: 36px;
+        padding: 0 12px;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 72px 0 130px;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.2rem, 9.6vw, 3.25rem);
+        line-height: 1;
+      }
+
+      .console-card {
+        min-height: auto;
+      }
+
+      .main-screen {
+        margin-top: -72px;
+        border-radius: 46px 46px 0 0;
+      }
+
+      .section {
+        padding: 68px 0;
+      }
+
+      .section h2 {
+        font-size: clamp(1.9rem, 8.5vw, 3rem);
+      }
+
+      .dark-card,
+      .term-card,
+      .schedule-card {
+        min-height: auto;
+      }
+
+      .process {
+        gap: 18px;
+        padding-left: 6px;
+      }
+
+      .process::before {
+        left: 27px;
+        transform: none;
+      }
+
+      .process-step {
+        grid-template-columns: 56px minmax(0, 1fr);
+        min-height: auto;
+        align-items: center;
+      }
+
+      .process-marker {
+        grid-column: 1;
+        width: 46px;
+        height: 46px;
+        font-size: 0.72rem;
+      }
+
+      .process-content,
+      .process-step:nth-child(odd) .process-content,
+      .process-step:nth-child(even) .process-content {
+        grid-column: 2;
+        justify-self: stretch;
+        text-align: left;
+        width: 100%;
+        padding: 18px;
+        border-radius: 20px;
+      }
+
+      .portfolio-card {
+        width: 286px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav wrap" aria-label="Navegação principal">
+      <a class="logo" href="#topo">Alien Designs</a>
+      <div class="nav-links" aria-label="Links internos">
+        <a href="#visao">Visão</a>
+        <a href="#escopo">Escopo</a>
+        <a href="#processo">Processo</a>
+        <a href="#investimento">Investimento</a>
+        <a href="#aceite">Aceite</a>
+      </div>
+      <a class="button small" href="https://wa.me/">Aprovar proposta</a>
+    </nav>
+  </header>
+
+  <main id="topo">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-content wrap">
+        <div class="eyebrow">PROPOSTA COMERCIAL · LANDING PAGE PREMIUM</div>
+        <p class="hero-greeting">Olá, Maria Eduarda.</p>
+        <h1 id="hero-title">
+          <span class="soft">Bem-vinda à nave da</span>
+          <span class="neon">Alien Designs.</span>
+        </h1>
+        <p class="hero-copy">
+          <strong>A partir de agora, vamos conduzir a rota criativa da sua Landing Page.</strong>
+          <span>Uma proposta para transformar sua próxima Landing Page em uma experiência clara, premium e impossível de ignorar.</span>
+        </p>
+        <div class="hero-actions">
+          <a class="button" href="https://wa.me/">Aprovar proposta</a>
+          <a class="button ghost" href="#visao">Ver rota estratégica</a>
+        </div>
+
+        <div class="console-grid" aria-label="Resumo da proposta">
+          <article class="console-card"><span>Cliente</span><strong>Maria Eduarda</strong></article>
+          <article class="console-card"><span>Nicho</span><strong>Marketing Digital</strong></article>
+          <article class="console-card"><span>Data</span><strong>22/05/2026</strong></article>
+          <article class="console-card"><span>Validade</span><strong>7 dias</strong></article>
+          <article class="console-card"><span>Prazo</span><strong>5 dias úteis</strong></article>
+          <article class="console-card"><span>Investimento</span><strong>R$ 1.800</strong></article>
+        </div>
+      </div>
+    </section>
+
+    <div class="main-screen">
+      <section class="section first" id="visao">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Visão estratégica</div>
+              <h2>Antes de desenhar a página, desenhamos a rota.</h2>
+            </div>
+            <p>A Landing Page da Maria Eduarda Marketing será construída para guiar o visitante com clareza, elevar a percepção de valor da marca e transformar atenção em ação direta.</p>
+          </div>
+
+          <div class="strategy-grid">
+            <article class="dark-card">
+              <span class="index">01</span>
+              <h3>Clareza da oferta</h3>
+              <p>Organização da mensagem para que o visitante entenda rapidamente o que está sendo oferecido, para quem é e qual o próximo passo.</p>
+            </article>
+            <article class="dark-card">
+              <span class="index">02</span>
+              <h3>Design com percepção premium</h3>
+              <p>Direção visual forte, moderna e responsiva para aumentar confiança antes mesmo da primeira conversa.</p>
+            </article>
+            <article class="dark-card">
+              <span class="index">03</span>
+              <h3>Caminho direto para conversão</h3>
+              <p>Fluxo de leitura e chamadas para ação pensadas para levar o lead qualificado ao WhatsApp com menos atrito.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="escopo">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">O que será construído</div>
+              <h2>Uma página com presença, intenção e acabamento.</h2>
+            </div>
+            <p>O escopo foi pensado para entregar uma Landing Page completa, comercialmente clara e pronta para apoiar o objetivo: captar leads qualificados e direcionar para o WhatsApp.</p>
+          </div>
+
+          <div class="scope-grid">
+            <article class="dark-card"><span class="index">01</span><h3>Landing Page completa</h3><p>Página única com estrutura comercial, apresentação da oferta, diferenciais e CTA principal.</p></article>
+            <article class="dark-card"><span class="index">02</span><h3>Design premium e responsivo</h3><p>Interface original, refinada e adaptada para desktop, tablet e mobile.</p></article>
+            <article class="dark-card"><span class="index">03</span><h3>Estrutura de conversão</h3><p>Seções organizadas para criar interesse, confiança e avanço para contato.</p></article>
+            <article class="dark-card"><span class="index">04</span><h3>Seções comerciais</h3><p>Blocos de conteúdo para oferta, benefícios, autoridade, prova e chamada para ação.</p></article>
+            <article class="dark-card"><span class="index">05</span><h3>Botões para WhatsApp</h3><p>Chamadas posicionadas em pontos estratégicos da página.</p></article>
+            <article class="dark-card"><span class="index">06</span><h3>SEO básico</h3><p>Hierarquia semântica, title, description e boas práticas iniciais de leitura.</p></article>
+            <article class="dark-card"><span class="index">07</span><h3>Até 2 rodadas de ajustes</h3><p>Refinamentos dentro do escopo aprovado para lapidar conteúdo e visual.</p></article>
+            <article class="dark-card"><span class="index">08</span><h3>Publicação ou arquivos</h3><p>Entrega final conforme combinado: publicação assistida ou arquivos organizados.</p></article>
+          </div>
+        </div>
+
+        <div class="carousel-zone" aria-labelledby="portfolio-title">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Rotas criativas</div>
+              <h2 id="portfolio-title">Algumas rotas criativas que já tiramos do papel.</h2>
+            </div>
+            <p>Landing Pages criadas para transformar ideias em presença, presença em confiança e confiança em ação.</p>
+          </div>
+
+          <!-- imagens_carrossel: substituir/editar os arquivos em rotas-criativas/ para atualizar os prints finais -->
+          <div class="marquee" aria-label="Carrossel contínuo de landing pages">
+            <div class="marquee-row">
+              <div class="marquee-track">
+                <figure class="portfolio-card" style="--shot: url('rotas-criativas/Captura de tela 2026-05-22 215537_resultado.webp'); --accent: #29ff9a;"><div class="mockup"><img src="rotas-criativas/Captura de tela 2026-05-22 215537_resultado.webp" alt="Print de landing page - Brand Growth" loading="lazy"></div><figcaption class="portfolio-caption"><strong>Brand Growth</strong><span>Autoridade visual</span></figcaption></figure>
+                <figure class="portfolio-card" style="--shot: url('rotas-criativas/Captura de tela 2026-05-22 215628_resultado.webp'); --accent: #29ff9a;"><div class="mockup"><img src="rotas-criativas/Captura de tela 2026-05-22 215628_resultado.webp" alt="Print de landing page - Página de conversão" loading="lazy"></div><figcaption class="portfolio-caption"><strong>Página de conversão</strong><span>Oferta clara</span></figcaption></figure>
+                <figure class="portfolio-card" style="--shot: url('rotas-criativas/Captura de tela 2026-05-22 215654_resultado.webp'); --accent: #29ff9a;"><div class="mockup"><img src="rotas-criativas/Captura de tela 2026-05-22 215654_resultado.webp" alt="Print de landing page - Experiência premium" loading="lazy"></div><figcaption class="portfolio-caption"><strong>Experiência premium</strong><span>Confiança</span></figcaption></figure>
+                <figure class="portfolio-card" style="--shot: url('rotas-criativas/Captura de tela 2026-05-22 215755_resultado.webp'); --accent: #29ff9a;"><div class="mockup"><img src="rotas-criativas/Captura de tela 2026-05-22 215755_resultado.webp" alt="Print de landing page - Campanha digital" loading="lazy"></div><figcaption class="portfolio-caption"><strong>Campanha digital</strong><span>Ação direta</span></figcaption></figure>
+                <figure class="portfolio-card" style="--shot: url('rotas-criativas/Captura de tela 2026-05-22 215822_resultado.webp'); --accent: #29ff9a;"><div class="mockup"><img src="rotas-criativas/Captura de tela 2026-05-22 215822_resultado.webp" alt="Print de landing page - Landing estratégica" loading="lazy"></div><figcaption class="portfolio-caption"><strong>Landing estratégica</strong><span>Captação</span></figcaption></figure>
+                <figure class="portfolio-card" style="--shot: url('rotas-criativas/Captura de tela 2026-05-22 215845_resultado.webp'); --accent: #29ff9a;"><div class="mockup"><img src="rotas-criativas/Captura de tela 2026-05-22 215845_resultado.webp" alt="Print de landing page - Rota comercial" loading="lazy"></div><figcaption class="portfolio-caption"><strong>Rota comercial</strong><span>WhatsApp</span></figcaption></figure>
+                <figure class="portfolio-card" aria-hidden="true" style="--shot: url('rotas-criativas/Captura de tela 2026-05-22 215537_resultado.webp'); --accent: #29ff9a;"><div class="mockup"><img src="rotas-criativas/Captura de tela 2026-05-22 215537_resultado.webp" alt="Print de landing page - Brand Growth" loading="lazy"></div><figcaption class="portfolio-caption"><strong>Brand Growth</strong><span>Autoridade visual</span></figcaption></figure>
+                <figure class="portfolio-card" aria-hidden="true" style="--shot: url('rotas-criativas/Captura de tela 2026-05-22 215628_resultado.webp'); --accent: #29ff9a;"><div class="mockup"><img src="rotas-criativas/Captura de tela 2026-05-22 215628_resultado.webp" alt="Print de landing page - Página de conversão" loading="lazy"></div><figcaption class="portfolio-caption"><strong>Página de conversão</strong><span>Oferta clara</span></figcaption></figure>
+                <figure class="portfolio-card" aria-hidden="true" style="--shot: url('rotas-criativas/Captura de tela 2026-05-22 215654_resultado.webp'); --accent: #29ff9a;"><div class="mockup"><img src="rotas-criativas/Captura de tela 2026-05-22 215654_resultado.webp" alt="Print de landing page - Experiência premium" loading="lazy"></div><figcaption class="portfolio-caption"><strong>Experiência premium</strong><span>Confiança</span></figcaption></figure>
+                <figure class="portfolio-card" aria-hidden="true" style="--shot: url('rotas-criativas/Captura de tela 2026-05-22 215755_resultado.webp'); --accent: #29ff9a;"><div class="mockup"><img src="rotas-criativas/Captura de tela 2026-05-22 215755_resultado.webp" alt="Print de landing page - Campanha digital" loading="lazy"></div><figcaption class="portfolio-caption"><strong>Campanha digital</strong><span>Ação direta</span></figcaption></figure>
+                <figure class="portfolio-card" aria-hidden="true" style="--shot: url('rotas-criativas/Captura de tela 2026-05-22 215822_resultado.webp'); --accent: #29ff9a;"><div class="mockup"><img src="rotas-criativas/Captura de tela 2026-05-22 215822_resultado.webp" alt="Print de landing page - Landing estratégica" loading="lazy"></div><figcaption class="portfolio-caption"><strong>Landing estratégica</strong><span>Captação</span></figcaption></figure>
+                <figure class="portfolio-card" aria-hidden="true" style="--shot: url('rotas-criativas/Captura de tela 2026-05-22 215845_resultado.webp'); --accent: #29ff9a;"><div class="mockup"><img src="rotas-criativas/Captura de tela 2026-05-22 215845_resultado.webp" alt="Print de landing page - Rota comercial" loading="lazy"></div><figcaption class="portfolio-caption"><strong>Rota comercial</strong><span>WhatsApp</span></figcaption></figure>
+              </div>
+            </div>
+            <div class="marquee-row reverse">
+              <div class="marquee-track">
+                <figure class="portfolio-card" style="--shot: url('rotas-criativas/Captura de tela 2026-05-22 215909_resultado.webp'); --accent: #29ff9a;"><div class="mockup"><img src="rotas-criativas/Captura de tela 2026-05-22 215909_resultado.webp" alt="Print de landing page - Presença digital" loading="lazy"></div><figcaption class="portfolio-caption"><strong>Presença digital</strong><span>Percepção premium</span></figcaption></figure>
+                <figure class="portfolio-card" style="--shot: url('rotas-criativas/Captura de tela 2026-05-22 220007_resultado.webp'); --accent: #29ff9a;"><div class="mockup"><img src="rotas-criativas/Captura de tela 2026-05-22 220007_resultado.webp" alt="Print de landing page - Página de impacto" loading="lazy"></div><figcaption class="portfolio-caption"><strong>Página de impacto</strong><span>Decisão simples</span></figcaption></figure>
+                <figure class="portfolio-card" style="--shot: url('rotas-criativas/CARROSSEL 04.webp'); --accent: #29ff9a;"><div class="mockup"><img src="rotas-criativas/CARROSSEL 04.webp" alt="Print de landing page - Layout de campanha" loading="lazy"></div><figcaption class="portfolio-caption"><strong>Layout de campanha</strong><span>Destaque visual</span></figcaption></figure>
+                <figure class="portfolio-card" style="--shot: url('rotas-criativas/CARROSSEL 05.webp'); --accent: #29ff9a;"><div class="mockup"><img src="rotas-criativas/CARROSSEL 05.webp" alt="Print de landing page - Narrativa de oferta" loading="lazy"></div><figcaption class="portfolio-caption"><strong>Narrativa de oferta</strong><span>Fluxo objetivo</span></figcaption></figure>
+                <figure class="portfolio-card" style="--shot: url('rotas-criativas/CARROSSEL 08.webp'); --accent: #29ff9a;"><div class="mockup"><img src="rotas-criativas/CARROSSEL 08.webp" alt="Print de landing page - Direção criativa" loading="lazy"></div><figcaption class="portfolio-caption"><strong>Direção criativa</strong><span>Conversão</span></figcaption></figure>
+                <figure class="portfolio-card" aria-hidden="true" style="--shot: url('rotas-criativas/Captura de tela 2026-05-22 215909_resultado.webp'); --accent: #29ff9a;"><div class="mockup"><img src="rotas-criativas/Captura de tela 2026-05-22 215909_resultado.webp" alt="Print de landing page - Presença digital" loading="lazy"></div><figcaption class="portfolio-caption"><strong>Presença digital</strong><span>Percepção premium</span></figcaption></figure>
+                <figure class="portfolio-card" aria-hidden="true" style="--shot: url('rotas-criativas/Captura de tela 2026-05-22 220007_resultado.webp'); --accent: #29ff9a;"><div class="mockup"><img src="rotas-criativas/Captura de tela 2026-05-22 220007_resultado.webp" alt="Print de landing page - Página de impacto" loading="lazy"></div><figcaption class="portfolio-caption"><strong>Página de impacto</strong><span>Decisão simples</span></figcaption></figure>
+                <figure class="portfolio-card" aria-hidden="true" style="--shot: url('rotas-criativas/CARROSSEL 04.webp'); --accent: #29ff9a;"><div class="mockup"><img src="rotas-criativas/CARROSSEL 04.webp" alt="Print de landing page - Layout de campanha" loading="lazy"></div><figcaption class="portfolio-caption"><strong>Layout de campanha</strong><span>Destaque visual</span></figcaption></figure>
+                <figure class="portfolio-card" aria-hidden="true" style="--shot: url('rotas-criativas/CARROSSEL 05.webp'); --accent: #29ff9a;"><div class="mockup"><img src="rotas-criativas/CARROSSEL 05.webp" alt="Print de landing page - Narrativa de oferta" loading="lazy"></div><figcaption class="portfolio-caption"><strong>Narrativa de oferta</strong><span>Fluxo objetivo</span></figcaption></figure>
+                <figure class="portfolio-card" aria-hidden="true" style="--shot: url('rotas-criativas/CARROSSEL 08.webp'); --accent: #29ff9a;"><div class="mockup"><img src="rotas-criativas/CARROSSEL 08.webp" alt="Print de landing page - Direção criativa" loading="lazy"></div><figcaption class="portfolio-caption"><strong>Direção criativa</strong><span>Conversão</span></figcaption></figure>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="processo">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Processo</div>
+              <h2>Como vamos conduzir a nave.</h2>
+            </div>
+            <p>Um processo simples, estratégico e visualmente guiado para manter a criação com direção clara do início ao lançamento.</p>
+          </div>
+
+          <div class="process">
+            <article class="process-step">
+              <span class="process-marker">01</span>
+              <div class="process-content">
+                <span class="process-label">Etapa 01</span>
+                <h3>Imersão</h3>
+                <p>Coleta de informações, materiais, objetivo comercial, público e referências essenciais.</p>
+              </div>
+            </article>
+
+            <article class="process-step">
+              <span class="process-marker">02</span>
+              <div class="process-content">
+                <span class="process-label">Etapa 02</span>
+                <h3>Rota estratégica</h3>
+                <p>Definição da narrativa, seções, hierarquia de conteúdo e caminho até a conversão.</p>
+              </div>
+            </article>
+
+            <article class="process-step">
+              <span class="process-marker">03</span>
+              <div class="process-content">
+                <span class="process-label">Etapa 03</span>
+                <h3>Direção visual</h3>
+                <p>Criação da atmosfera visual da página com foco em percepção premium e clareza.</p>
+              </div>
+            </article>
+
+            <article class="process-step">
+              <span class="process-marker">04</span>
+              <div class="process-content">
+                <span class="process-label">Etapa 04</span>
+                <h3>Desenvolvimento</h3>
+                <p>Construção responsiva da Landing Page e aplicação dos pontos de chamada para ação.</p>
+              </div>
+            </article>
+
+            <article class="process-step">
+              <span class="process-marker">05</span>
+              <div class="process-content">
+                <span class="process-label">Etapa 05</span>
+                <h3>Revisão e lançamento</h3>
+                <p>Ajustes finais, conferência responsiva e entrega ou publicação conforme combinado.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="cronograma-title">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Cronograma</div>
+              <h2 id="cronograma-title">Uma rota clara até a publicação.</h2>
+            </div>
+            <p>O prazo inicia após aceite, pagamento inicial e envio dos materiais necessários para produção.</p>
+          </div>
+
+          <div class="schedule-grid">
+            <article class="schedule-card"><span>Dia 1</span><h3>Briefing e estrutura</h3><p>Organização da oferta, objetivo, conteúdo base e mapa da página.</p></article>
+            <article class="schedule-card"><span>Dia 2</span><h3>Direção visual</h3><p>Definição estética, composição principal e linguagem visual da página.</p></article>
+            <article class="schedule-card"><span>Dias 3 e 4</span><h3>Desenvolvimento</h3><p>Construção da experiência responsiva e dos blocos comerciais.</p></article>
+            <article class="schedule-card"><span>Dia 5</span><h3>Ajustes e entrega</h3><p>Revisão, refinamentos finais e publicação ou entrega dos arquivos.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="investimento">
+        <div class="wrap">
+          <div class="investment-panel">
+            <div>
+              <div class="section-kicker">Investimento</div>
+              <h2>Investimento para colocar essa nave em órbita.</h2>
+              <p>Uma entrega completa para transformar a presença da oferta em uma página com visual premium, leitura estratégica e chamada direta para ação.</p>
+            </div>
+            <aside class="price-box" aria-label="Resumo do investimento">
+              <span>Investimento total</span>
+              <strong>R$ 1.800</strong>
+              <p>50% na aprovação e 50% antes da publicação final.</p>
+              <div class="mini-facts">
+                <div><span>Validade</span><b>7 dias</b></div>
+                <div><span>Prazo</span><b>5 dias úteis</b></div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="condicoes-title">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Condições</div>
+              <h2 id="condicoes-title">Termos claros para uma rota sem ruído.</h2>
+            </div>
+            <p>As condições abaixo mantêm escopo, prazo e responsabilidades bem definidos para que a produção avance com fluidez.</p>
+          </div>
+
+          <div class="terms-grid">
+            <article class="term-card"><span class="index">01</span><h3>Início do prazo</h3><p>O prazo inicia após aceite, pagamento inicial e envio dos materiais necessários.</p></article>
+            <article class="term-card"><span class="index">02</span><h3>Rodadas de ajustes</h3><p>Estão inclusas 2 rodadas de ajustes, desde que solicitadas dentro do escopo aprovado.</p></article>
+            <article class="term-card"><span class="index">03</span><h3>Fora do escopo</h3><p>Alterações adicionais, novas páginas, integrações ou demandas extras podem gerar novo orçamento.</p></article>
+            <article class="term-card"><span class="index">04</span><h3>Resultados comerciais</h3><p>Resultados dependem também de oferta, tráfego, atendimento, preço, mercado e operação comercial.</p></article>
+            <article class="term-card"><span class="index">05</span><h3>Itens não inclusos</h3><p>Não inclui tráfego pago, copywriting avançado do zero, fotos, vídeos, automações, CRM, domínio, hospedagem ou manutenção mensal, salvo se combinado.</p></article>
+            <article class="term-card"><span class="index">06</span><h3>Entrega final</h3><p>A publicação ou entrega dos arquivos seguirá o formato combinado no fechamento da proposta.</p></article>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="final-cta" id="aceite">
+      <div class="wrap">
+        <div class="cta-box">
+          <div class="section-kicker">Aceite</div>
+          <h2>Pronta para decolar?</h2>
+          <p>Se essa rota faz sentido para você, o próximo passo é aprovar a proposta e iniciar a imersão.</p>
+          <a class="button" href="https://wa.me/">Aprovar proposta</a>
+          <div class="signature">Alien Designs · Criatividade fora da órbita comum.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
