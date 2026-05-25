@@ -61,8 +61,8 @@ export function ProposalTemplate({ proposal }: { proposal: Proposal }) {
     <>
       <header className="site-header">
         <nav className="nav wrap" aria-label="Navegação principal">
-          <a className="logo" href="#topo" aria-label="Alien Designs">
-            <img src="/logo-alien/logo-alien-hub.svg" alt="Alien Designs" />
+          <a className="logo" href="#topo">
+            Alien Designs
           </a>
           <div className="nav-links" aria-label="Links internos">
             <a href="#visao">Visão</a>

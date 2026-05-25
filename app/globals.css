@@ -112,16 +112,22 @@ figure {
 }
 
 .logo {
-  display: inline-flex;
-  align-items: center;
-  width: clamp(126px, 13vw, 176px);
+  font-weight: 900;
+  font-size: 1.02rem;
+  letter-spacing: 0;
   text-decoration: none;
+  white-space: nowrap;
 }
 
-.logo img {
-  width: 100%;
-  height: auto;
-  filter: drop-shadow(0 0 18px rgba(41, 255, 154, 0.2));
+.logo::after {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-left: 9px;
+  border-radius: 50%;
+  background: var(--neon);
+  box-shadow: 0 0 20px rgba(41, 255, 154, 0.75);
 }
 
 .nav-links {
@@ -1007,59 +1013,16 @@ textarea::placeholder {
   }
 }
 
-.reveal {
-  transform-origin: 50% 65%;
-}
-
 @media (prefers-reduced-motion: no-preference) {
+  .hero-content,
+  .console-card,
+  .section-head,
+  .dark-card,
+  .process-step,
+  .investment-panel,
   .admin-shell,
   .expired-panel {
     animation: rise 700ms ease both;
-  }
-
-  .reveal {
-    opacity: 0;
-    transform: translateY(34px) scale(0.985);
-    transition:
-      opacity 700ms ease,
-      transform 700ms ease;
-  }
-
-  @supports (animation-timeline: view()) {
-    .reveal {
-      animation: reveal-by-scroll both ease-out;
-      animation-timeline: view();
-      animation-range: entry 0% exit 100%;
-    }
-
-    .hero-content.reveal {
-      animation-range: entry 0% exit 88%;
-    }
-  }
-
-  @supports not (animation-timeline: view()) {
-    .reveal {
-      animation: rise 700ms ease both;
-    }
-  }
-}
-
-@keyframes reveal-by-scroll {
-  0% {
-    opacity: 0;
-    transform: translateY(34px) scale(0.985);
-    filter: blur(6px);
-  }
-  22%,
-  78% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-22px) scale(0.992);
-    filter: blur(4px);
   }
 }
 
