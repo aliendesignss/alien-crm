@@ -44,11 +44,21 @@ function createPayload(body: ProposalBody, slug: string) {
 
 function getErrorMessage(error: unknown) {
   if (error instanceof Error) {
+    if (error.message === "fetch failed") {
+      return "Não foi possível conectar ao Supabase. Verifique se o projeto está ativo e se as variáveis de ambiente estão corretas.";
+    }
+
     return error.message;
   }
 
   if (typeof error === "object" && error && "message" in error) {
-    return String(error.message);
+    const message = String(error.message);
+
+    if (message === "fetch failed") {
+      return "Não foi possível conectar ao Supabase. Verifique se o projeto está ativo e se as variáveis de ambiente estão corretas.";
+    }
+
+    return message;
   }
 
   return "Erro inesperado ao criar proposta.";
