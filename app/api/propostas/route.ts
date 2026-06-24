@@ -11,66 +11,88 @@ const requiredFields = [
   "investimento"
 ] as const;
 
-async function createAvailableSlug(nomeCliente: string) {
-  const supabase = getSupabase();
-  const baseSlug = slugify(nomeCliente) || "proposta";
-  let candidate = baseSlug;
-  let suffix = 2;
+const maxSlugAttempts = 20;
 
-  while (true) {
-    const { data, error } = await supabase.from("propostas").select("slug").eq("slug", candidate).maybeSingle();
+type ProposalBody = Record<string, unknown>;
 
-    if (error) {
-      throw error;
-    }
+function getStringValue(body: ProposalBody, field: string) {
+  return String(body[field] ?? "").trim();
+}
 
-    if (!data) {
-      return candidate;
-    }
+function getOptionalStringValue(body: ProposalBody, field: string) {
+  const value = getStringValue(body, field);
 
-    candidate = `${baseSlug}-${suffix}`;
-    suffix += 1;
+  return value || null;
+}
+
+function createPayload(body: ProposalBody, slug: string) {
+  return {
+    slug,
+    nome_cliente: getStringValue(body, "nome_cliente"),
+    nome_empresa: getOptionalStringValue(body, "nome_empresa"),
+    nicho: getStringValue(body, "nicho"),
+    data_proposta: getStringValue(body, "data_proposta"),
+    validade_proposta: getStringValue(body, "validade_proposta"),
+    prazo_entrega: getStringValue(body, "prazo_entrega"),
+    investimento: getStringValue(body, "investimento"),
+    condicao_pagamento: getOptionalStringValue(body, "condicao_pagamento"),
+    objetivo: getOptionalStringValue(body, "objetivo"),
+    whatsapp_url: getOptionalStringValue(body, "whatsapp_url"),
+    status: "ativa"
+  };
+}
+
+function getErrorMessage(error: unknown) {
+  if (error instanceof Error) {
+    return error.message;
   }
+
+  if (typeof error === "object" && error && "message" in error) {
+    return String(error.message);
+  }
+
+  return "Erro inesperado ao criar proposta.";
+}
+
+function isUniqueViolation(error: unknown) {
+  return typeof error === "object" && error !== null && "code" in error && error.code === "23505";
 }
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
-    const missing = requiredFields.filter((field) => !String(body[field] ?? "").trim());
+    const body = (await request.json()) as ProposalBody;
+    const missing = requiredFields.filter((field) => !getStringValue(body, field));
 
     if (missing.length > 0) {
       return NextResponse.json(
-        { error: "Preencha todos os campos obrigatorios.", fields: missing },
+        { error: "Preencha todos os campos obrigatórios.", fields: missing },
         { status: 400 }
       );
     }
 
-    const slug = await createAvailableSlug(body.nome_cliente);
     const supabase = getSupabase();
+    const baseSlug = slugify(getStringValue(body, "nome_cliente")) || "proposta";
 
-    const payload = {
-      slug,
-      nome_cliente: body.nome_cliente,
-      nome_empresa: body.nome_empresa || null,
-      nicho: body.nicho,
-      data_proposta: body.data_proposta,
-      validade_proposta: body.validade_proposta,
-      prazo_entrega: body.prazo_entrega,
-      investimento: body.investimento,
-      condicao_pagamento: body.condicao_pagamento || null,
-      objetivo: body.objetivo || null,
-      whatsapp_url: body.whatsapp_url || null
-    };
+    for (let attempt = 1; attempt <= maxSlugAttempts; attempt += 1) {
+      const slug = attempt === 1 ? baseSlug : `${baseSlug}-${attempt}`;
+      const payload = createPayload(body, slug);
+      const { error } = await supabase.from("propostas").insert(payload);
 
-    const { data, error } = await supabase.from("propostas").insert(payload).select("*").single();
+      if (!error) {
+        return NextResponse.json({ proposta: payload, slug });
+      }
 
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      if (!isUniqueViolation(error)) {
+        return NextResponse.json({ error: getErrorMessage(error) }, { status: 500 });
+      }
     }
 
-    return NextResponse.json({ proposta: data, slug });
+    return NextResponse.json(
+      { error: "Não foi possível gerar um slug único para esta proposta." },
+      { status: 409 }
+    );
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Erro inesperado ao criar proposta.";
+    const message = getErrorMessage(error);
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
