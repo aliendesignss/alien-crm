@@ -1,216 +1,184 @@
-"use client";
+import Link from "next/link";
+import { getServiceLabel } from "@/lib/briefing-config";
+import { getSupabase } from "@/lib/supabase";
+import type { Briefing, Client, Proposal } from "@/lib/types";
 
-import { FormEvent, useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
+export const dynamic = "force-dynamic";
 
-type FormState = {
-  nome_cliente: string;
-  nome_empresa: string;
-  nicho: string;
-  validade_proposta: string;
-  data_proposta: string;
-  prazo_entrega: string;
-  investimento: string;
-  condicao_pagamento: string;
-  objetivo: string;
-  whatsapp_url: string;
-};
+type ProposalRecord = Proposal & { created_at?: string | null };
 
-const initialState: FormState = {
-  nome_cliente: "",
-  nome_empresa: "",
-  nicho: "",
-  validade_proposta: "",
-  data_proposta: new Date().toISOString().slice(0, 10),
-  prazo_entrega: "5 dias uteis",
-  investimento: "",
-  condicao_pagamento: "50% para iniciar e 50% na entrega",
-  objetivo: "",
-  whatsapp_url: ""
-};
-
-const requiredFields: Array<keyof FormState> = [
-  "nome_cliente",
-  "nicho",
-  "validade_proposta",
-  "data_proposta",
-  "prazo_entrega",
-  "investimento"
-];
-
-export default function AdminPage() {
-  const router = useRouter();
-  const [form, setForm] = useState<FormState>(initialState);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  const missingFields = useMemo(
-    () => requiredFields.filter((field) => !form[field].trim()),
-    [form]
-  );
-
-  function updateField(field: keyof FormState, value: string) {
-    setForm((current) => ({ ...current, [field]: value }));
+function formatDate(date?: string | null) {
+  if (!date) {
+    return "Sem data";
   }
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setError("");
+  return new Intl.DateTimeFormat("pt-BR").format(new Date(date));
+}
 
-    if (missingFields.length > 0) {
-      setError("Preencha os campos obrigatorios antes de gerar a proposta.");
-      return;
-    }
+async function loadHubData() {
+  try {
+    const supabase = getSupabase();
+    const [proposals, briefings, clients] = await Promise.all([
+      supabase.from("propostas").select("*").order("created_at", { ascending: false }).limit(6),
+      supabase.from("briefings").select("*").order("created_at", { ascending: false }).limit(6),
+      supabase.from("clientes").select("*").order("created_at", { ascending: false }).limit(6)
+    ]);
 
-    setLoading(true);
-
-    try {
-      const response = await fetch("/api/propostas", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form)
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Nao foi possivel criar a proposta.");
-      }
-
-      router.push(`/proposta/${data.slug}`);
-    } catch (requestError) {
-      setError(requestError instanceof Error ? requestError.message : "Erro inesperado ao gerar proposta.");
-    } finally {
-      setLoading(false);
-    }
+    return {
+      proposals: (proposals.data ?? []) as ProposalRecord[],
+      briefings: (briefings.data ?? []) as Briefing[],
+      clients: (clients.data ?? []) as Client[],
+      setupError: proposals.error || briefings.error || clients.error ? "Revise o schema do Supabase da Fase 1." : ""
+    };
+  } catch (error) {
+    return {
+      proposals: [] as ProposalRecord[],
+      briefings: [] as Briefing[],
+      clients: [] as Client[],
+      setupError: error instanceof Error ? error.message : "Nao foi possivel carregar o Hub."
+    };
   }
+}
+
+export default async function AdminPage() {
+  const { proposals, briefings, clients, setupError } = await loadHubData();
+  const activeProjects = briefings.filter((briefing) => briefing.status !== "finalizado").length;
 
   return (
-    <main className="admin-screen">
-      {/* TODO: proteger esta rota com autenticacao antes de liberar para producao. */}
-      <section className="admin-shell">
-        <aside className="admin-briefing">
-          <div className="section-kicker">Central interna</div>
-          <h1>Comando de propostas Alien Designs.</h1>
+    <main className="hub-screen">
+      <section className="hub-hero">
+        <div>
+          <div className="section-kicker">Alien Hub</div>
+          <h1>Centro operacional da Alien Designs.</h1>
           <p>
-            Preencha os dados da rota comercial e gere uma proposta publica com o mesmo DNA visual das Landing Pages da
-            Alien.
+            Base do MVP para acompanhar indicadores, briefings, clientes e o status dos projetos sem alterar o modulo
+            de propostas comerciais.
           </p>
-          <div className="mission-strip">
-            <span>Status</span>
-            <strong>Modulo Landing Page ativo</strong>
-          </div>
-          <div className="mission-grid">
-            <article>
-              <span>01</span>
-              <b>Dados</b>
-            </article>
-            <article>
-              <span>02</span>
-              <b>Slug</b>
-            </article>
-            <article>
-              <span>03</span>
-              <b>Proposta</b>
-            </article>
-          </div>
-        </aside>
+        </div>
+        <nav className="hub-actions" aria-label="Modulos do Alien Hub">
+          <Link className="button" href="/admin/briefings">
+            Novo Briefing
+          </Link>
+          <Link className="button ghost" href="/admin/propostas">
+            Propostas
+          </Link>
+          <Link className="button ghost" href="/admin/clientes">
+            Clientes
+          </Link>
+        </nav>
+      </section>
 
-        <form className="admin-form" onSubmit={handleSubmit}>
-          <div className="form-head">
-            <span>Gerador de proposta</span>
-            <strong>Landing Page Premium</strong>
+      {setupError ? <p className="setup-alert">{setupError}</p> : null}
+
+      <section className="hub-metrics" aria-label="Indicadores gerais">
+        <article>
+          <span>Briefings</span>
+          <strong>{briefings.length}</strong>
+          <p>Ultimos registros operacionais</p>
+        </article>
+        <article>
+          <span>Clientes</span>
+          <strong>{clients.length}</strong>
+          <p>Cadastro criado pelo primeiro briefing</p>
+        </article>
+        <article>
+          <span>Propostas</span>
+          <strong>{proposals.length}</strong>
+          <p>Modulo preservado e ativo</p>
+        </article>
+        <article>
+          <span>Projetos ativos</span>
+          <strong>{activeProjects}</strong>
+          <p>Status inicial do pipeline</p>
+        </article>
+      </section>
+
+      <section className="hub-grid">
+        <article className="hub-panel">
+          <div className="hub-panel-head">
+            <span>Ultimos briefings</span>
+            <Link href="/admin/briefings">Ver todos</Link>
           </div>
-
-          <div className="form-grid">
-            <label>
-              Nome do cliente *
-              <input
-                value={form.nome_cliente}
-                onChange={(event) => updateField("nome_cliente", event.target.value)}
-                placeholder="Maria Eduarda"
-              />
-            </label>
-            <label>
-              Nome da empresa/marca
-              <input
-                value={form.nome_empresa}
-                onChange={(event) => updateField("nome_empresa", event.target.value)}
-                placeholder="Marca da cliente"
-              />
-            </label>
-            <label>
-              Nicho *
-              <input
-                value={form.nicho}
-                onChange={(event) => updateField("nicho", event.target.value)}
-                placeholder="Estetica, arquitetura, infoproduto..."
-              />
-            </label>
-            <label>
-              Data da proposta *
-              <input
-                type="date"
-                value={form.data_proposta}
-                onChange={(event) => updateField("data_proposta", event.target.value)}
-              />
-            </label>
-            <label>
-              Validade da proposta *
-              <input
-                type="date"
-                value={form.validade_proposta}
-                onChange={(event) => updateField("validade_proposta", event.target.value)}
-              />
-            </label>
-            <label>
-              Prazo de entrega *
-              <input
-                value={form.prazo_entrega}
-                onChange={(event) => updateField("prazo_entrega", event.target.value)}
-                placeholder="5 dias uteis"
-              />
-            </label>
-            <label>
-              Investimento *
-              <input
-                value={form.investimento}
-                onChange={(event) => updateField("investimento", event.target.value)}
-                placeholder="R$ 1.497,00"
-              />
-            </label>
-            <label>
-              Condicao de pagamento
-              <input
-                value={form.condicao_pagamento}
-                onChange={(event) => updateField("condicao_pagamento", event.target.value)}
-                placeholder="50% no inicio e 50% na entrega"
-              />
-            </label>
-            <label className="span-2">
-              Objetivo da Landing Page
-              <textarea
-                value={form.objetivo}
-                onChange={(event) => updateField("objetivo", event.target.value)}
-                placeholder="Captar leads qualificados pelo WhatsApp para vender..."
-              />
-            </label>
-            <label className="span-2">
-              WhatsApp URL
-              <input
-                value={form.whatsapp_url}
-                onChange={(event) => updateField("whatsapp_url", event.target.value)}
-                placeholder="https://wa.me/55..."
-              />
-            </label>
+          <div className="hub-list">
+            {briefings.length === 0 ? (
+              <p className="empty-state">Nenhum briefing salvo ainda.</p>
+            ) : (
+              briefings.map((briefing) => (
+                <div className="hub-list-row" key={briefing.id}>
+                  <div>
+                    <strong>{briefing.cliente_nome}</strong>
+                    <p>{briefing.servicos.map(getServiceLabel).join(", ")}</p>
+                  </div>
+                  <span>{formatDate(briefing.created_at)}</span>
+                </div>
+              ))
+            )}
           </div>
+        </article>
 
-          {error ? <p className="form-error">{error}</p> : null}
+        <article className="hub-panel">
+          <div className="hub-panel-head">
+            <span>Status dos projetos</span>
+            <strong>Pipeline MVP</strong>
+          </div>
+          <div className="status-stack">
+            {briefings.length === 0 ? (
+              <p className="empty-state">Os projetos aparecem aqui depois do primeiro briefing.</p>
+            ) : (
+              briefings.map((briefing) => (
+                <div className="status-item" key={briefing.id}>
+                  <span>{briefing.status ?? "novo"}</span>
+                  <strong>{briefing.cliente_nome}</strong>
+                  <p>{briefing.servicos.map(getServiceLabel).join(", ")}</p>
+                </div>
+              ))
+            )}
+          </div>
+        </article>
 
-          <button className="button admin-submit" disabled={loading} type="submit">
-            {loading ? "Gerando rota..." : "Gerar Proposta"}
-          </button>
-        </form>
+        <article className="hub-panel">
+          <div className="hub-panel-head">
+            <span>Clientes recentes</span>
+            <Link href="/admin/clientes">Historico</Link>
+          </div>
+          <div className="hub-list">
+            {clients.length === 0 ? (
+              <p className="empty-state">Clientes serao cadastrados automaticamente pelos briefings.</p>
+            ) : (
+              clients.map((client) => (
+                <div className="hub-list-row" key={client.id}>
+                  <div>
+                    <strong>{client.nome}</strong>
+                    <p>{client.empresa || client.email || "Sem complemento"}</p>
+                  </div>
+                  <span>{formatDate(client.created_at)}</span>
+                </div>
+              ))
+            )}
+          </div>
+        </article>
+
+        <article className="hub-panel">
+          <div className="hub-panel-head">
+            <span>Propostas comerciais</span>
+            <Link href="/admin/propostas">Gerar</Link>
+          </div>
+          <div className="hub-list">
+            {proposals.length === 0 ? (
+              <p className="empty-state">Nenhuma proposta encontrada.</p>
+            ) : (
+              proposals.map((proposal) => (
+                <div className="hub-list-row" key={proposal.slug}>
+                  <div>
+                    <strong>{proposal.nome_cliente}</strong>
+                    <p>{proposal.nicho}</p>
+                  </div>
+                  <span>{proposal.status ?? "ativa"}</span>
+                </div>
+              ))
+            )}
+          </div>
+        </article>
       </section>
     </main>
   );
